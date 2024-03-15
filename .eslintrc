@@ -1,0 +1,57 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "ignorePatterns": [
+        "lib/"
+    ],
+    "rules": {
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "@typescript-eslint/quotes": [
+            "error",
+            "double"
+        ],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "@typescript-eslint/indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "comma-dangle": [
+            "error",
+            "always-multiline"
+        ],
+        "max-len": [
+            "error",
+            {
+                "code": 220
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-cycle": "off",
+        "no-new": "off",
+        "new-cap": "off"
+    }
+}

@@ -1,8 +1,30 @@
-import { API } from "homebridge";
+import { API } from 'homebridge';
+import { GarageDoor, initESPHome } from './garage-door';
+import { withPrefix } from 'homebridge/lib/logger';
 
-import { PLATFORM_NAME } from "./settings";
-import Platform from "./platform";
+export default function(api: API) {
+  api.registerAccessory('homebridge-ratgdo-esphome', 'GarageDoor', GarageDoor);
+}
 
-export = (api: API): void => {
-    api.registerPlatform(PLATFORM_NAME, Platform);
-};
+function run() {
+  const source = initESPHome('192.168.0.50', 80, withPrefix('ESPHome'), e => console.log(e));
+  return new Promise<void>(resolve => {
+    process.stdin.on('keypress', async (str, key) => {
+      if (key.ctrl && key.name === 'c') {
+        source.close();
+        resolve();
+      }
+    });
+  });
+}
+/*
+run()
+  .then(() => {
+    console.log('Exiting...');
+    process.exit(0);
+  })
+  .catch(() => {
+    console.log('Exiting...');
+    process.exit(1);
+  });
+*/

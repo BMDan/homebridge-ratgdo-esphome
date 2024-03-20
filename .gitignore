@@ -106,3 +106,10 @@ dist
 
 # macOS junk
 .DS_Store
+
+# Inherited from upstream
+/dist/
+.idea
+.npmrc
+.esphome
+esphome/.esphome

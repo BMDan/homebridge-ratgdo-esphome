@@ -1,16 +1,37 @@
 {
-    "pluginAlias": "RatGDO ESPHome",
-    "pluginType": "platform",
-    "singular": true,
-    "schema": {
-        "type": "object",
-        "properties": {
-            "name": {
-                "title": "Name",
-                "type": "string",
-                "required": true,
-                "default": ""
-            }
-        }
+  "pluginAlias": "RatGDO-ESPHome",
+  "pluginType": "accessory",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Garage Door",
+        "minLength": 1,
+        "required": true
+      },
+      "port": {
+        "title": "Port",
+        "description": "RatGDO ESPHome Port Number",
+        "type": "number",
+        "default": 80,
+        "required": true
+      },
+      "host": {
+        "title": "Host",
+        "description": "RatGDO ESPHome Host IP/Name",
+        "type": "string",
+        "required": true
+      },
+      "opening_time": {
+        "title": "Opening/Closing time (in seconds)",
+        "description": "",
+        "type": "number",
+        "default": 30,
+        "required": true
+      }
     }
+  },
+  "form": ["name", "host", "port", "opening_time"]
 }

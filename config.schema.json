@@ -1,0 +1,39 @@
+{
+  "pluginAlias": "RatGDOESPHome",
+  "pluginType": "platform",
+  "singular": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "devices": {
+        "title": "Garage Doors:",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "title": "displayName",
+              "type": "string",
+              "default": "Garage Door",
+              "minLength": 1,
+              "required": true
+            },
+            "port": {
+              "title": "Port",
+              "description": "",
+              "type": "number",
+              "default": 80,
+              "required": true
+            },
+            "host": {
+              "title": "Host",
+              "description": "ESPHome Host IP/Name",
+              "type": "string",
+              "required": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

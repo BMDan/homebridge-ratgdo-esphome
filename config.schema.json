@@ -5,6 +5,12 @@
   "schema": {
     "type": "object",
     "properties": {
+      "name": {
+        "title": "RatGDOESPHome",
+        "type": "string",
+        "required": true,
+        "default": "RatGDOESPHome"
+      },
       "devices": {
         "title": "Garage Doors:",
         "type": "array",
@@ -35,5 +41,21 @@
         }
       }
     }
-  }
+  },
+  "layout": [
+    {
+      "type": "fieldset",
+      "title": "Device Settings",
+      "expandable": true,
+      "expanded": true,
+      "items": [
+        {
+          "key": "devices",
+          "notitle": false,
+          "type": "tabarray",
+          "title": "{{ value.displayName || value.host || 'New RatGDO Device' }}",
+        }
+      ]
+    }
+  ]
 }

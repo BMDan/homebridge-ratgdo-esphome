@@ -3,6 +3,7 @@ import { CharacteristicValue, PlatformAccessory, Service } from 'homebridge';
 import fetch from 'node-fetch'; // I am, in fact, trying to make fetch happen.
 import { RECONNECT_TIMEOUT } from './settings';
 import Timeout = NodeJS.Timeout;
+import net from 'node:net';
 
 import { RatgdoEsphomePlatform } from './platform';
 
@@ -213,7 +214,39 @@ export class RatgdoEsphomeAccessory {
       }, RECONNECT_TIMEOUT);
       return null;
     }
+    this.createNativeAPIDummyHeartbeat();
   }
+
+  private createNativeAPIDummyHeartbeat(): void {
+    // 6053: https://esphome.io/components/api.html
+    // Run a <5-second-long connection to the HA native API port every 5 minutes or so;
+    // this prevents ESPHome from rebooting itself because of a (at least slightly)
+    // braindead "feature".
+    if ( !this.initialized ) {
+      this.debug('Connection not (yet?) initialized; delaying native API heartbeat start.');
+    } else {
+      this.debug('Native API heartbeat.');
+      const socket = net.createConnection(
+        {host: this.host, port: 6053},
+        (
+          () => setTimeout(
+            () => {
+              socket.destroy();
+            },
+            5 * 1000,
+          )
+        ),
+      );
+    }
+
+    setTimeout(
+      () => {
+        this.createNativeAPIDummyHeartbeat();
+      },
+      5 * 60 * 1000,
+    );
+  }
+
 
   private createTimeout(): Timeout | null {
     return setTimeout(async () => {
